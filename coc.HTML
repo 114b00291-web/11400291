@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>暖心寵物站 — 範例網站</title>
+  <meta name="description" content="簡約暖色系的寵物主題範例網站（Home / Adoption / Shop / Community / About）" />
+  <style>
+    :root{
+      --bg: #fff8f2;
+      --card: #fff6ef;
+      --accent: #ff8a65; /* warm coral */
+      --accent-2: #ffb88c; /* lighter */
+      --muted: #6b6b6b;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans TC', 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg, #fff8f2 0%, #fffdfb 100%);
+      color:#2b2b2b;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* container */
+    .wrap{max-width:1100px;margin:28px auto;padding:22px}
+    header{display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(255,138,101,0.18);}
+    .logo svg{width:36px;height:36px;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.08))}
+    h1{font-size:20px;margin:0}
+    nav{margin-left:auto}
+    .nav{display:flex;gap:12px}
+    .nav button{background:none;border:0;padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer}
+    .nav button.active{background:var(--card);box-shadow:inset 0 -3px 0 rgba(0,0,0,0.02);}
+
+    /* hero */
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:center;margin-top:22px}
+    .card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:0 8px 30px rgba(43,43,43,0.04)}
+    .lead{font-size:18px;margin-bottom:12px}
+    .cta{display:inline-block;padding:10px 14px;border-radius:12px;background:var(--accent);color:white;font-weight:700;text-decoration:none}
+
+    /* grid for feature cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .feature{padding:16px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),transparent);display:flex;gap:12px;align-items:center;cursor:pointer;transition:transform .22s ease, box-shadow .22s ease}
+    .feature:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(43,43,43,0.06)}
+
+    /* section layout */
+    section.page{display:none;margin-top:18px}
+    section.page.active{display:block}
+
+    /* adoption cards */
+    .pet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .pet{background:linear-gradient(180deg,#fff,#fff8f6);padding:12px;border-radius:12px;display:flex;flex-direction:column;gap:10px}
+    .pet img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .pet .meta{display:flex;justify-content:space-between;align-items:center}
+    .btn{padding:9px 12px;border-radius:10px;border:0;cursor:pointer}
+    .btn.primary{background:var(--accent);color:white;font-weight:700}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+
+    /* shop */
+    .shop-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+
+    /* community */
+    .post{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:12px;background:var(--card)}
+    .avatar{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:var(--glass)}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px;padding:18px}
+
+    /* small animations */
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+    .float{animation:floaty 4s ease-in-out infinite}
+
+    /* responsive */
+    @media (max-width:900px){.hero{grid-template-columns:1fr} .logo{width:48px;height:48px}.wrap{padding:16px}}
+
+    /* utility */
+    .muted{color:var(--muted)}
+    a{color:inherit}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- simple pet SVG -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 28c0-6 6-12 14-12s14 6 14 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 42c0 6 8 10 16 10s16-4 16-10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="26" cy="24" r="2.5" fill="white"/>
+            <circle cx="38" cy="24" r="2.5" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <h1>暖心寵物站</h1>
+          <div class="muted">簡約溫暖的寵物主題範例</div>
+        </div>
+      </div>
+
+      <nav>
+        <div class="nav" role="tablist" aria-label="主要選單">
+          <button class="active" data-target="home">首頁</button>
+          <button data-target="adopt">領養</button>
+          <button data-target="shop">商城</button>
+          <button data-target="community">社群</button>
+          <button data-target="about">關於</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO + quick links -->
+    <main>
+      <section id="home" class="page active">
+        <div class="hero">
+          <div>
+            <div class="card">
+              <div class="lead">找到你的新朋友或學習如何更好照護毛小孩 — 我們提供領養、購物與飼養指南。</div>
+              <a href="#" class="cta" onclick="openSection('adopt')">看看可領養的動物</a>
+
+              <div class="grid" style="margin-top:18px">
+                <div class="feature" onclick="openSection('adopt')">
+                  <!-- SVG icon -->
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M12 21s-4-2.5-7-6.5C2 9 5 4 8 4s4 3 4 3 1.5-3 4-3 6 5 3 10.5C16 18.5 12 21 12 21z" stroke="#FF8A65" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+                  <div>
+                    <div style="font-weight:700">快速領養</div>
+                    <div class="muted">查看待認養動物</div>
+                  </div>
+                </div>
+
+                <div class="feature" onclick="openSection('shop')">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M3 7h18v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" stroke="#FFB88C" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+                  <div>
+                    <div style="font-weight:700">精選好物</div>
+                    <div class="muted">嚴選寵物用品與配件</div>
+                  </div>
+                </div>
+
+                <div class="feature" onclick="openSection('community')">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M7 8a4 4 0 1 1 8 0" stroke="#FF8A65" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 20a8 8 0 0 1 18 0" stroke="#FFB88C" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+                  <div>
+                    <div style="font-weight:700">社群分享</div>
+                    <div class="muted">上傳寵物照、互動交流</div>
+                  </div>
+                </div>
+
+                <div class="feature" onclick="openSection('about')">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="#FF8A65" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 22h16" stroke="#FFB88C" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+                  <div>
+                    <div style="font-weight:700">關於我們</div>
+                    <div class="muted">願景與服務說明</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- illustration column -->
+          <div class="card float" aria-hidden="true">
+            <!-- inline SVG illustration (scalable, editable) -->
+            <svg viewBox="0 0 600 480" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="插圖：寵物與主人">
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="#fff" stop-opacity="0.6" />
+                  <stop offset="1" stop-color="#ffece0" stop-opacity="0.9" />
+                </linearGradient>
+              </defs>
+              <rect x="0" y="0" width="600" height="480" rx="18" fill="url(#g1)" />
+              <!-- stylized owner + dog -->
+              <g transform="translate(40,40)">
+                <ellipse cx="200" cy="320" rx="160" ry="40" fill="#fff" opacity="0.6"/>
+                <circle cx="140" cy="170" r="70" fill="#FFB88C" />
+                <circle cx="320" cy="200" r="80" fill="#FF8A65" />
+                <rect x="110" y="230" width="240" height="120" rx="24" fill="#fff" />
+                <!-- dog ear -->
+                <path d="M120 150 q-40 -20 -30 -60" fill="#fff" opacity="0.08" />
+                <!-- eyes -->
+                <circle cx="130" cy="160" r="6" fill="#2b2b2b" />
+                <circle cx="170" cy="160" r="6" fill="#2b2b2b" />
+                <path d="M150 180 q15 14 30 0" stroke="#2b2b2b" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- quick tips -->
+        <div class="card" style="margin-top:18px">
+          <h3 style="margin:0 0 10px 0">入門小知識</h3>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <span class="muted">• 每日固定餵食時間</span>
+            <span class="muted">• 適度運動與玩耍</span>
+            <span class="muted">• 定期健康檢查與疫苗</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ADOPTION -->
+      <section id="adopt" class="page">
+        <div class="card">
+          <h2>領養專區</h2>
+          <p class="muted">點選卡片查看詳情並填寫領養申請。</p>
+
+          <div class="pet-grid" style="margin-top:12px">
+            <!-- pet card 1 -->
+            <article class="pet">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23FFEDE0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='%23FF8A65'>小米（狗）</text></svg>" alt="小米">
+              <div>
+                <strong>小米（狗） • 2歲</strong>
+                <div class="muted">活潑、已結紮、已施打疫苗</div>
+              </div>
+              <div class="meta">
+                <div class="muted">台北市</div>
+                <div>
+                  <button class="btn ghost" onclick="openPet('小米')">詳情</button>
+                  <button class="btn primary" onclick="applyAdopt('小米')">申請領養</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- pet card 2 -->
+            <article class="pet">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%23FFF6F0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='%23FFB88C'>咪咪（貓）</text></svg>" alt="咪咪">
+              <div>
+                <strong>咪咪（貓） • 1歲</strong>
+                <div class="muted">親人、室內飼養、已結紮</div>
+              </div>
+              <div class="meta">
+                <div class="muted">新北市</div>
+                <div>
+                  <button class="btn ghost" onclick="openPet('咪咪')">詳情</button>
+                  <button class="btn primary" onclick="applyAdopt('咪咪')">申請領養</button>
+                </div>
+              </div>
+            </article>
+
+            <!-- more cards... -->
+
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOP -->
+      <section id="shop" class="page">
+        <div class="card">
+          <h2>寵物商城</h2>
+          <p class="muted">為你挑選實用且安心的商品。</p>
+          <div class="shop-list" style="margin-top:12px">
+            <div class="pet" style="align-items:flex-start">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='100%' height='100%' fill='%23FFF5F0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%23FF8A65'>天然糧 2kg</text></svg>" alt="乾糧">
+              <div><strong>天然乾糧 2kg</strong><div class="muted">適合敏感體質</div></div>
+              <div style="margin-top:auto;display:flex;gap:8px"><button class="btn ghost">加入購物車</button><button class="btn primary">購買</button></div>
+            </div>
+
+            <div class="pet" style="align-items:flex-start">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='100%' height='100%' fill='%23FFF8F2'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='20' fill='%23FFB88C'>舒適窩</text></svg>" alt="窩">
+              <div><strong>可拆洗寵物窩</strong><div class="muted">柔軟保暖、可機洗</div></div>
+              <div style="margin-top:auto;display:flex;gap:8px"><button class="btn ghost">加入購物車</button><button class="btn primary">購買</button></div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMUNITY -->
+      <section id="community" class="page">
+        <div class="card">
+          <h2>社群牆</h2>
+          <p class="muted">分享你的寵物日常，看看其他人的可愛分享。</p>
+
+          <div style="margin-top:12px">
+            <div class="post">
+              <div class="avatar"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="10" r="3" fill="#FF8A65"/><rect x="6" y="14" width="12" height="6" rx="3" fill="#FFB88C"/></svg></div>
+              <div>
+                <div style="font-weight:700">dengt</div>
+                <div class="muted">剛帶新狗狗回家，他超會搶球！</div>
+                <div style="margin-top:8px"><button class="btn ghost">留言</button> <button class="btn primary">按讚</button></div>
+              </div>
+            </div>
+
+            <div class="post" style="margin-top:10px">
+              <div class="avatar"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="10" r="3" fill="#FFB88C"/><rect x="6" y="14" width="12" height="6" rx="3" fill="#FF8A65"/></svg></div>
+              <div>
+                <div style="font-weight:700">Mia</div>
+                <div class="muted">這週末要去領養，大家有推薦的準備清單嗎？</div>
+                <div style="margin-top:8px"><button class="btn ghost">留言</button> <button class="btn primary">按讚</button></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="page">
+        <div class="card">
+          <h2>關於暖心寵物站</h2>
+          <p class="muted">我們的願景是讓更多毛小孩找到溫暖的家，也讓飼主獲得正確可靠的知識。</p>
+          <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+            <div style="min-width:200px">
+              <h4>我們提供</h4>
+              <ul class="muted">
+                <li>領養媒合</li>
+                <li>寵物用品推薦</li>
+                <li>社群互動與知識庫</li>
+              </ul>
+            </div>
+            <div style="min-width:200px">
+              <h4>聯絡方式</h4>
+              <div class="muted">hello@petsite.example</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2025 暖心寵物站 — 範例網站 • 本頁為單檔 HTML 範例，適合匯出或拆分為多個實體頁面。
+    </footer>
+  </div>
+
+  <script>
+    // simple SPA navigation
+    const tabs = document.querySelectorAll('.nav button');
+    function openSection(id){
+      document.querySelectorAll('section.page').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      tabs.forEach(b=>b.classList.toggle('active', b.dataset.target===id));
+      // focus top for better accessibility
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    tabs.forEach(b=>b.addEventListener('click',()=>openSection(b.dataset.target)));
+
+    // small interactions
+    function openPet(name){
+      alert(name + " 的詳情範例。你可以把這裡改成 modal 或導向到獨立的詳情頁。")
+    }
+    function applyAdopt(name){
+      const confirmed = confirm('你要申請領養 ' + name + ' 嗎？');
+      if(confirmed){
+        alert('已送出 ' + name + ' 的領養申請（範例）。');
+      }
+    }
+
+    // keyboard navigation (left/right to switch)
+    document.addEventListener('keydown', (e)=>{
+      const order = ['home','adopt','shop','community','about'];
+      let idx = order.findIndex(o=>document.getElementById(o).classList.contains('active'));
+      if(e.key==='ArrowRight'){ idx = (idx+1)%order.length; openSection(order[idx]); }
+      if(e.key==='ArrowLeft'){ idx = (idx-1+order.length)%order.length; openSection(order[idx]); }
+    });
+  </script>
+</body>
+</html>
